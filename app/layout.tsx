@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./task-interactions.css";
 
 export const metadata: Metadata = {
   title: "Desk Life",
