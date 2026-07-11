@@ -56,6 +56,16 @@ export default function Home() {
         <article className="card panel stats-panel"><div className="panel-heading"><h2>Седмична статистика</h2></div><div className="stat"><span>🍴</span><div><strong>18</strong><small>Хранения регистрирани</small></div></div><div className="stat"><span>👟</span><div><strong>7 450</strong><small>Средно крачки на ден</small></div></div><div className="stat"><span>🔥</span><div><strong>9 дни</strong><small>Текуща поредица</small></div></div><div className="chart" aria-label="Графика на активността">{[42,70,62,55,82,60,75].map((height,index) => <i key={index} style={{height:`${height}%`}} />)}</div></article>
       </section>
 
+      <section className="shell tdee-promo card">
+        <div className="tdee-promo-icon" aria-hidden="true">∑</div>
+        <div>
+          <p className="content-meta">Полезен инструмент</p>
+          <h2>Изчисли приблизителните си дневни калории</h2>
+          <p>TDEE калкулаторът дава ориентировъчна стойност за калориите, които поддържат текущото ти тегло според възраст, ръст, тегло и активност.</p>
+        </div>
+        <Link className="button button-secondary" href="/calculators/tdee">Отвори TDEE калкулатора</Link>
+      </section>
+
       <section className="shell benefit-strip"><div><strong>Създадено за реалния работен ден</strong><span>Малките действия се натрупват.</span></div><div><strong>Лесно проследяване</strong><span>Отбелязвай и виж напредъка си.</span></div><div><strong>Фокус върху постоянството</strong><span>Без стремеж към перфектен ден.</span></div><div><strong>За хора като теб</strong><span>Офис служители, фрийлансъри и предприемачи.</span></div></section>
     </main>
   );
