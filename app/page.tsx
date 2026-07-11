@@ -2,6 +2,7 @@ import Link from "next/link";
 import { heroImage } from "./assets/hero-image";
 import { DailyPlan } from "./components/DailyPlan";
 import { SiteHeader } from "./components/SiteHeader";
+import { WeeklyStats } from "./components/WeeklyStats";
 
 const features = [
   {
@@ -52,7 +53,7 @@ export default function Home() {
 
       <section className="shell dashboard-grid" id="dashboard">
         <DailyPlan />
-        <article className="card panel stats-panel"><div className="panel-heading"><h2>Седмична статистика</h2></div><div className="stat"><span>🍴</span><div><strong>18</strong><small>Хранения регистрирани</small></div></div><div className="stat"><span>👟</span><div><strong>7 450</strong><small>Средно крачки на ден</small></div></div><div className="stat"><span>🔥</span><div><strong>9 дни</strong><small>Текуща поредица</small></div></div><div className="chart" aria-label="Графика на активността">{[42,70,62,55,82,60,75].map((height,index) => <i key={index} style={{height:`${height}%`}} />)}</div></article>
+        <WeeklyStats />
       </section>
 
       <section className="shell tdee-promo card">
