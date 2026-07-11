@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { SiteHeader } from "../../components/SiteHeader";
 
 const meals = [
   { title: "Закуска", share: "Около 25% от дневните калории", example: "Овесени ядки с мляко или вода, източник на протеин, плодове и малко ядково масло." },
@@ -11,7 +10,6 @@ const meals = [
 export default function MealPlanPage() {
   return (
     <main>
-      <SiteHeader />
       <section className="page-hero shell">
         <p className="eyebrow"><span /> Примерна структура на хранене</p>
         <h1>Разпредели храната си така, че да работи с реалния ти ден.</h1>
