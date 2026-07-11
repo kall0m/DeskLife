@@ -1,10 +1,8 @@
 import Link from "next/link";
-import { SiteHeader } from "../components/SiteHeader";
 
 export default function LoginPage() {
   return (
     <main>
-      <SiteHeader />
       <section className="shell page-hero">
         <p className="eyebrow"><span /> Профил</p>
         <h1>Входът ще бъде добавен на следващ етап.</h1>
