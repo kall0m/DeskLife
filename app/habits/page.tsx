@@ -1,0 +1,31 @@
+import { SiteHeader } from "../components/SiteHeader";
+
+const habits = [
+  ["Вода", "Започни с една чаша вода и добавяй малки напомняния през деня."],
+  ["Почивки от екрана", "Откъсни поглед от монитора и дай кратка почивка на очите си."],
+  ["Раздвижване", "Стани за няколко минути между срещи или задачи."],
+  ["Свеж въздух", "Кратка разходка може да върне фокуса и да подобри настроението."],
+  ["Спокоен край на деня", "Създай кратък ритуал, който отделя работата от личното време."],
+];
+
+export default function HabitsPage() {
+  return (
+    <main>
+      <SiteHeader />
+      <section className="shell page-hero">
+        <p className="eyebrow"><span /> Малки действия, повтаряни редовно</p>
+        <h1>Навици за повече енергия в реалния работен ден.</h1>
+        <p>Не е нужно да променяш всичко наведнъж. Избери едно малко действие и го направи достатъчно лесно, за да можеш да го повториш и утре.</p>
+      </section>
+      <section className="shell page-section stack">
+        {habits.map(([title, text], index) => (
+          <article className="card content-card" key={title}>
+            <p className="content-meta">Навик {index + 1}</p>
+            <h2>{title}</h2>
+            <p>{text}</p>
+          </article>
+        ))}
+      </section>
+    </main>
+  );
+}
