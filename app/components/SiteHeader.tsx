@@ -1,10 +1,11 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export function SiteHeader() {
   return (
     <header className="site-header shell">
       <Link className="brand" href="/" aria-label="Desk Life начало">
-        <span className="brand-mark">●</span>
+        <Image className="brand-logo" src="/icon.svg" alt="" width={32} height={38} priority />
         <span>Desk Life</span>
       </Link>
       <nav aria-label="Главна навигация">
