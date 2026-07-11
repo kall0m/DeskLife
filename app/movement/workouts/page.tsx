@@ -1,5 +1,3 @@
-import { SiteHeader } from "../../components/SiteHeader";
-
 const plans = [
   {
     title: "Начинаещ: цяло тяло",
@@ -32,7 +30,6 @@ const plans = [
 export default function WorkoutsPage() {
   return (
     <main>
-      <SiteHeader />
       <section className="page-hero shell">
         <p className="eyebrow"><span /> Библиотека с тренировки</p>
         <h1>Избери структура според опита и времето си.</h1>
