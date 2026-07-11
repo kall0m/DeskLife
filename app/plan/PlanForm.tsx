@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
 type Result = {
@@ -8,7 +8,10 @@ type Result = {
   recommendation: string;
   workout: string[];
   nutrition: string[];
+  dailyHabits?: string[];
 };
+
+const STORAGE_KEY = "desklife-plan";
 
 const workoutByExperience: Record<string, string[]> = {
   beginner: ["Понеделник — тренировка за цяло тяло", "Сряда — тренировка за цяло тяло", "Петък — тренировка за цяло тяло", "Останалите дни — разходка и възстановяване"],
@@ -31,6 +34,21 @@ export function PlanForm() {
 
   const dailyHabits = useMemo(() => ["Изпий 500 мл вода след започване на работа", "Направи 5 минути раздвижване", "Излез на кратка разходка", "Планирай следващото си хранене", "Направи кратка почивка без екран"], []);
 
+  useEffect(() => {
+    try {
+      const savedPlan = localStorage.getItem(STORAGE_KEY);
+      if (savedPlan) {
+        const parsedPlan = JSON.parse(savedPlan) as Result;
+        if (parsedPlan?.recommendation && Array.isArray(parsedPlan.workout) && Array.isArray(parsedPlan.nutrition)) {
+          setResult(parsedPlan);
+          setSaved(true);
+        }
+      }
+    } catch {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  }, []);
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
@@ -38,19 +56,23 @@ export function PlanForm() {
     const goal = String(form.get("goal"));
     const nutrition = nutritionByGoal[goal];
 
-    setResult({
+    const nextResult: Result = {
       name: String(form.get("name") || "").trim() || "Твоят план",
       recommendation: nutrition.title,
       workout: workoutByExperience[experience],
       nutrition: nutrition.tips,
-    });
-    setSaved(false);
+      dailyHabits,
+    };
+
+    setResult(nextResult);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(nextResult));
+    setSaved(true);
   }
 
-  function savePlan() {
-    if (!result) return;
-    localStorage.setItem("desklife-plan", JSON.stringify({ ...result, dailyHabits }));
-    setSaved(true);
+  function clearPlan() {
+    localStorage.removeItem(STORAGE_KEY);
+    setResult(null);
+    setSaved(false);
   }
 
   return (
@@ -82,9 +104,12 @@ export function PlanForm() {
             <h3>Хранителна насока</h3>
             <ul className="clean-list">{result.nutrition.map((item) => <li key={item}>{item}</li>)}</ul>
             <h3>Навици за работния ден</h3>
-            <ul className="clean-list">{dailyHabits.map((item) => <li key={item}>{item}</li>)}</ul>
-            <div className="result-actions"><button className="button" type="button" onClick={savePlan}>Запази в браузъра</button><Link className="text-link" href="/calculators/tdee">Изчисли калориите →</Link></div>
-            {saved && <p className="success-note">Планът е запазен на това устройство.</p>}
+            <ul className="clean-list">{(result.dailyHabits ?? dailyHabits).map((item) => <li key={item}>{item}</li>)}</ul>
+            <div className="result-actions">
+              <Link className="button" href="/calculators/tdee">Изчисли калориите</Link>
+              <button className="text-button" type="button" onClick={clearPlan}>Изчисти плана</button>
+            </div>
+            {saved && <p className="success-note">Планът е запазен на това устройство и ще остане видим след презареждане.</p>}
           </>
         )}
       </aside>
