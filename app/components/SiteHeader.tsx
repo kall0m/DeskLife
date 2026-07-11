@@ -10,10 +10,9 @@ export function SiteHeader() {
       <nav aria-label="Главна навигация">
         <Link href="/food/meal-plan">Храна</Link>
         <Link href="/movement/workouts">Движение</Link>
-        <Link href="/plan">План</Link>
-        <Link href="/calculators/tdee">TDEE</Link>
+        <Link href="/habits">Навици</Link>
       </nav>
-      <Link className="button button-small" href="/plan">Започни</Link>
+      <Link className="button button-small" href="/login">Вход</Link>
     </header>
   );
 }
