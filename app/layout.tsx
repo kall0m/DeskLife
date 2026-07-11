@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SiteFooter } from "./components/SiteFooter";
+import { SiteHeader } from "./components/SiteHeader";
 import "./globals.css";
 import "./task-interactions.css";
 import "./product-enhancements.css";
@@ -16,6 +17,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="bg">
       <body>
+        <SiteHeader />
         {children}
         <SiteFooter />
       </body>
