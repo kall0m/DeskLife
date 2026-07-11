@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const STORAGE_KEY = "desklife-daily-plan";
 
 const initialTasks = [
   { title: "Закуска", text: "Започни деня с нещо питателно.", done: true },
@@ -14,8 +16,30 @@ const initialTasks = [
 
 export function DailyPlan() {
   const [tasks, setTasks] = useState(initialTasks);
+  const [hasLoaded, setHasLoaded] = useState(false);
   const completedCount = tasks.filter((task) => task.done).length;
   const progress = (completedCount / tasks.length) * 100;
+
+  useEffect(() => {
+    try {
+      const savedTasks = localStorage.getItem(STORAGE_KEY);
+      if (savedTasks) {
+        const parsedTasks = JSON.parse(savedTasks) as typeof initialTasks;
+        if (Array.isArray(parsedTasks) && parsedTasks.length === initialTasks.length) {
+          setTasks(parsedTasks);
+        }
+      }
+    } catch {
+      localStorage.removeItem(STORAGE_KEY);
+    } finally {
+      setHasLoaded(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!hasLoaded) return;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  }, [tasks, hasLoaded]);
 
   function toggleTask(index: number) {
     setTasks((currentTasks) =>
