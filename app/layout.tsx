@@ -3,6 +3,7 @@ import "./globals.css";
 import "./task-interactions.css";
 import "./product-enhancements.css";
 import "./visual-assets.css";
+import "./weekly-stats.css";
 
 export const metadata: Metadata = {
   title: "Desk Life",
