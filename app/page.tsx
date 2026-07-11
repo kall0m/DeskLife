@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { heroImage } from "./assets/hero-image";
 import { DailyPlan } from "./components/DailyPlan";
 import { SiteHeader } from "./components/SiteHeader";
 
@@ -39,10 +40,8 @@ export default function Home() {
             </div>
             <div className="trust-row"><span>Без кредитна карта</span><span>Бързо и лесно</span><span>Създадено за работещи хора</span></div>
           </div>
-          <div className="hero-visual" aria-label="Примерен изглед на Desk Life">
-            <div className="window-shadow" />
-            <div className="laptop"><div className="laptop-screen"><div className="mini-brand">Desk Life</div><h2>Добър ден. Готов ли си за малки победи?</h2><p>Днешният прогрес</p><div className="progress-ring"><span>✓</span></div><strong>4 / 7 завършени</strong></div><div className="laptop-base" /></div>
-            <div className="plant">🌿</div><div className="mug">focus<br />fuel<br />thrive</div>
+          <div className="hero-visual hero-photo-wrap">
+            <img className="hero-photo" src={heroImage} alt="Работно бюро с лаптоп, показващ дневния прогрес в Desk Life" />
           </div>
         </div>
       </section>
