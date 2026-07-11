@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { heroImage } from "./assets/hero-image";
 import { DailyPlan } from "./components/DailyPlan";
-import { SiteHeader } from "./components/SiteHeader";
 import { WeeklyStats } from "./components/WeeklyStats";
 
 const features = [
@@ -28,7 +27,6 @@ const features = [
 export default function Home() {
   return (
     <main>
-      <SiteHeader />
       <section className="hero" id="top">
         <div className="shell hero-grid">
           <div className="hero-copy">
