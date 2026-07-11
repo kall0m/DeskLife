@@ -1,5 +1,3 @@
-import { SiteHeader } from "../components/SiteHeader";
-
 const habits = [
   ["Вода", "Започни с една чаша вода и добавяй малки напомняния през деня."],
   ["Почивки от екрана", "Откъсни поглед от монитора и дай кратка почивка на очите си."],
@@ -11,7 +9,6 @@ const habits = [
 export default function HabitsPage() {
   return (
     <main>
-      <SiteHeader />
       <section className="shell page-hero">
         <p className="eyebrow"><span /> Малки действия, повтаряни редовно</p>
         <h1>Навици за повече енергия в реалния работен ден.</h1>
