@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./task-interactions.css";
 import "./product-enhancements.css";
+import "./visual-assets.css";
 
 export const metadata: Metadata = {
   title: "Desk Life",
