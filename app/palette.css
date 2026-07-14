@@ -1,0 +1,85 @@
+:root {
+  color-scheme: light;
+
+  --color-page: #f6f8fb;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f8fafc;
+  --color-surface-accent: #eef4ff;
+
+  --color-text: #101828;
+  --color-text-secondary: #344054;
+  --color-text-body: #475467;
+  --color-text-muted: #667085;
+  --color-text-subtle: #98a2b3;
+
+  --color-border: #e7eaf0;
+  --color-border-strong: #d0d5dd;
+  --color-control-border: #c8ced8;
+  --color-progress-track: #e7ebf1;
+
+  --color-accent: #1769e8;
+  --color-accent-hover: #0f55bd;
+  --color-accent-on: #ffffff;
+  --color-accent-soft: #eef4ff;
+
+  --color-success: #159455;
+  --color-success-strong: #067647;
+  --color-danger: #b42318;
+
+  --color-movement-heading: #4b6380;
+  --color-movement-body: #6f8299;
+  --color-movement-muted: #8797aa;
+
+  --shadow-card: 0 12px 40px rgba(16, 24, 40, 0.05);
+  --shadow-button: 0 8px 20px rgba(23, 105, 232, 0.18);
+  --focus-ring: rgba(23, 105, 232, 0.16);
+
+  --page: var(--color-page);
+  --surface: var(--color-surface);
+  --surface-soft: var(--color-surface-soft);
+  --text: var(--color-text);
+  --muted: var(--color-text-muted);
+  --border: var(--color-border);
+  --accent: var(--color-accent);
+  --accent-hover: var(--color-accent-hover);
+  --accent-soft: var(--color-accent-soft);
+  --success: var(--color-success);
+  --shadow: var(--shadow-card);
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-page: #11151c;
+  --color-surface: #1a2029;
+  --color-surface-soft: #222a35;
+  --color-surface-accent: #253650;
+
+  --color-text: #f4f7fb;
+  --color-text-secondary: #d9e1ec;
+  --color-text-body: #c2ccda;
+  --color-text-muted: #abb6c5;
+  --color-text-subtle: #8e9bae;
+
+  --color-border: #303a48;
+  --color-border-strong: #465264;
+  --color-control-border: #526074;
+  --color-progress-track: #303a48;
+
+  --color-accent: #65a1ff;
+  --color-accent-hover: #8bb8ff;
+  --color-accent-on: #0d1520;
+  --color-accent-soft: #253650;
+
+  --color-success: #55c98a;
+  --color-success-strong: #74dfa4;
+  --color-danger: #ff8d85;
+
+  --color-movement-heading: #d7e2ef;
+  --color-movement-body: #bdcadd;
+  --color-movement-muted: #a6b5c9;
+
+  --shadow-card: 0 18px 48px rgba(0, 0, 0, 0.24);
+  --shadow-button: 0 8px 20px rgba(101, 161, 255, 0.18);
+  --focus-ring: rgba(101, 161, 255, 0.24);
+}
