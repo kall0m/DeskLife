@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CategoryIllustration, type IllustrationType } from "../../components/CategoryIllustration";
 
 type PlanKey = "beginner" | "intermediate" | "advanced";
+type WeekDay = { day: string; label: string; training: boolean };
 
 type Plan = {
   title: string;
@@ -12,6 +13,7 @@ type Plan = {
   rank: number;
   icon: IllustrationType;
   days: [string, string[]][];
+  week: WeekDay[];
 };
 
 const plans: Record<PlanKey, Plan> = {
@@ -22,6 +24,12 @@ const plans: Record<PlanKey, Plan> = {
     rank: 1,
     icon: "beginner",
     days: [["Понеделник / Сряда / Петък", ["Клек с щанга или дъмбели — 3×8–10", "Лежанка — 3×8–10", "Гребане с дъмбел или скрипец — 3×10", "Раменна преса — 3×10", "Бицепс + трицепс — 2×12", "Планк или коремни преси — 3 серии"]]],
+    week: [
+      { day: "Пон", label: "Тренировка", training: true }, { day: "Вто", label: "Почивка", training: false },
+      { day: "Сря", label: "Тренировка", training: true }, { day: "Чет", label: "Почивка", training: false },
+      { day: "Пет", label: "Тренировка", training: true }, { day: "Съб", label: "Почивка", training: false },
+      { day: "Нед", label: "Почивка", training: false },
+    ],
   },
   intermediate: {
     title: "Средно напреднал: Push / Pull / Legs",
@@ -34,6 +42,12 @@ const plans: Record<PlanKey, Plan> = {
       ["Вторник и Петък — Pull", ["Мъртва тяга само в единия ден — 3×5", "Набирания или скрипец — 4×8–10", "Гребане с щанга — 3×8", "Face pull — 3×15", "Сгъване с EZ лост — 3×10–12"]],
       ["Сряда и Събота — Legs & Abs", ["Клек — 4×6–8", "Румънска тяга — 3×10", "Лег преса — 3×10–12", "Прасци — 4×15", "Повдигане на краката — 3 серии"]],
     ],
+    week: [
+      { day: "Пон", label: "Push", training: true }, { day: "Вто", label: "Pull", training: true },
+      { day: "Сря", label: "Legs", training: true }, { day: "Чет", label: "Push", training: true },
+      { day: "Пет", label: "Pull", training: true }, { day: "Съб", label: "Legs", training: true },
+      { day: "Нед", label: "Почивка", training: false },
+    ],
   },
   advanced: {
     title: "Напреднал: бодибилдинг сплит",
@@ -42,6 +56,12 @@ const plans: Record<PlanKey, Plan> = {
     rank: 3,
     icon: "advanced",
     days: [["Седмица", ["Понеделник — гърди", "Вторник — гръб", "Сряда — крака", "Четвъртък — рамене", "Петък — ръце", "Събота — слаби точки или кардио", "Неделя — почивка"]]],
+    week: [
+      { day: "Пон", label: "Гърди", training: true }, { day: "Вто", label: "Гръб", training: true },
+      { day: "Сря", label: "Крака", training: true }, { day: "Чет", label: "Рамене", training: true },
+      { day: "Пет", label: "Ръце", training: true }, { day: "Съб", label: "Кардио", training: true },
+      { day: "Нед", label: "Почивка", training: false },
+    ],
   },
 };
 
@@ -62,10 +82,7 @@ export default function WorkoutsPage() {
           <label htmlFor="workout-level">Ниво на плана</label>
           <div className="workout-selector-controls">
             <select id="workout-level" value={selected} onChange={(event) => setSelected(event.target.value as PlanKey | "")}>
-              <option value="">Избери ниво</option>
-              <option value="beginner">Начинаещ</option>
-              <option value="intermediate">Средно напреднал</option>
-              <option value="advanced">Напреднал</option>
+              <option value="">Избери ниво</option><option value="beginner">Начинаещ</option><option value="intermediate">Средно напреднал</option><option value="advanced">Напреднал</option>
             </select>
             <button className="button" type="button" disabled={!selected} onClick={() => setVisiblePlan(selected || null)}>Покажи плана</button>
           </div>
@@ -82,16 +99,15 @@ export default function WorkoutsPage() {
               <p className="content-meta">{plan.meta}</p>
               <h2>{plan.title}</h2>
               <p>{plan.intro}</p>
+              <div className="workout-week" aria-label="Седмичен график">
+                {plan.week.map((item) => <div className={`workout-day-card${item.training ? " is-training" : " is-rest"}`} key={item.day}><strong>{item.day}</strong><span>{item.label}</span></div>)}
+              </div>
               <div className="workout-days">
-                {plan.days.map(([day, exercises]) => (
-                  <section key={day}><h3>{day}</h3><ul className="clean-list">{exercises.map((exercise) => <li key={exercise}>{exercise}</li>)}</ul></section>
-                ))}
+                {plan.days.map(([day, exercises]) => <section key={day}><h3>{day}</h3><ul className="clean-list">{exercises.map((exercise) => <li key={exercise}>{exercise}</li>)}</ul></section>)}
               </div>
             </div>
           </article>
-        ) : (
-          <div className="card empty-state workout-empty"><h2>Избери тренировъчно ниво</h2><p>Планът ще се появи тук след натискане на бутона.</p></div>
-        )}
+        ) : <div className="card empty-state workout-empty"><h2>Избери тренировъчно ниво</h2><p>Планът ще се появи тук след натискане на бутона.</p></div>}
       </section>
     </main>
   );
