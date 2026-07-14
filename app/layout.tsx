@@ -3,6 +3,7 @@ import { Preloader } from "./components/Preloader";
 import { ScrollHeadingAnimations } from "./components/ScrollHeadingAnimations";
 import { SiteFooter } from "./components/SiteFooter";
 import { SiteHeader } from "./components/SiteHeader";
+import "./palette.css";
 import "./globals.css";
 import "./task-interactions.css";
 import "./product-enhancements.css";
