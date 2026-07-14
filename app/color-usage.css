@@ -1,0 +1,45 @@
+.lead,
+.trust-row,
+.clean-list {
+  color: var(--color-text-body);
+}
+
+.form-card label {
+  color: var(--color-text-secondary);
+}
+
+html[data-theme="dark"] .lead,
+html[data-theme="dark"] .trust-row,
+html[data-theme="dark"] .clean-list {
+  color: var(--color-text-body);
+}
+
+html[data-theme="dark"] .form-card label {
+  color: var(--color-text-secondary);
+}
+
+.calculator-result-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.calculator-result-actions .button {
+  margin-top: 0;
+}
+
+@media (max-width: 620px) {
+  .calculator-result-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .calculator-result-actions .button,
+  .calculator-result-actions .text-button {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
