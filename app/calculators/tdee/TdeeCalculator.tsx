@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 type Goal = "maintain" | "cut" | "bulk";
 type Calculation = { bmr: number; tdee: number; target: number; goal: Goal };
+
+const STORAGE_KEY = "desklife-tdee-result";
 
 const activityFactors: Record<string, number> = {
   sedentary: 1.2,
@@ -21,8 +23,30 @@ const goalLabels: Record<Goal, string> = {
   bulk: "ориентировъчна цел за постепенно покачване",
 };
 
+function isCalculation(value: unknown): value is Calculation {
+  if (!value || typeof value !== "object") return false;
+  const result = value as Calculation;
+  return (
+    Number.isFinite(result.bmr) &&
+    Number.isFinite(result.tdee) &&
+    Number.isFinite(result.target) &&
+    (result.goal === "maintain" || result.goal === "cut" || result.goal === "bulk")
+  );
+}
+
 export function TdeeCalculator() {
   const [result, setResult] = useState<Calculation | null>(null);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) return;
+      const parsed: unknown = JSON.parse(saved);
+      if (isCalculation(parsed)) setResult(parsed);
+    } catch {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  }, []);
 
   function calculate(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -35,7 +59,10 @@ export function TdeeCalculator() {
     const goal = String(data.get("goal")) as Goal;
     const bmr = 10 * weight + 6.25 * height - 5 * age + (gender === "male" ? 5 : -161);
     const tdee = Math.round(bmr * activityFactors[activity]);
-    setResult({ bmr: Math.round(bmr), tdee, target: tdee + goalAdjustments[goal], goal });
+    const nextResult = { bmr: Math.round(bmr), tdee, target: tdee + goalAdjustments[goal], goal };
+
+    setResult(nextResult);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(nextResult));
   }
 
   return (
@@ -55,7 +82,7 @@ export function TdeeCalculator() {
           <div className="metric"><strong>{result.bmr}</strong><span>kcal базов метаболизъм (BMR)</span></div>
           <div className="metric"><strong>{result.tdee}</strong><span>kcal приблизителен дневен енергиен разход</span></div>
           <div className="metric primary"><strong>{result.target}</strong><span>kcal {goalLabels[result.goal]}</span></div>
-          <p className="muted">Стойностите са ориентировъчни. Проследявай енергията, теглото и ежедневното си движение и коригирай постепенно.</p>
+          <p className="muted">Стойностите са ориентировъчни. Резултатът се запазва в този браузър и остава видим след презареждане.</p>
           <Link className="button button-secondary" href="/food/meal-plan">Виж примерен хранителен план</Link>
         </> : <div className="empty-state"><h2>Въведи данните си</h2><p>Ще изчислим BMR, TDEE и ориентировъчна стойност според избраната цел.</p></div>}
       </aside>
