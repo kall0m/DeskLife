@@ -13,7 +13,7 @@ export type IllustrationType =
   | "advanced";
 
 const illustrations: Record<IllustrationType, ReactNode> = {
-  food: <><path d="M18 50h60"/><path d="M24 50c3 18 12 28 24 28s21-10 24-28"/><path d="M31 45c0-8 5-14 12-14 4 0 7 2 9 5 2-7 7-11 14-11 6 0 11 4 13 10"/><path d="M38 34c-5-7-10-10-16-10 1 8 6 14 14 17M57 31c2-8 8-13 16-14-1 8-6 14-14 17M46 29c0-8 3-14 9-18 3 7 2 14-3 20"/></>,
+  food: <><path d="M20 50h56"/><path d="M26 50c2 17 11 27 22 27s20-10 22-27"/><path d="M34 42c3-6 8-10 14-10s11 4 14 10"/><circle cx="38" cy="39" r="4"/><circle cx="58" cy="39" r="4"/><path d="M48 32V20M48 26c-8 0-13-5-13-12 8 0 13 4 13 12ZM48 26c8 0 13-5 13-12-8 0-13 4-13 12Z"/></>,
   movement: <><circle cx="48" cy="18" r="7"/><path d="M48 29v24"/><path d="m48 36-15 10"/><path d="m48 36 16 8"/><path d="m48 53-14 22"/><path d="m48 53 17 19"/><path d="M28 77h12M62 74h12"/></>,
   habits: <><path d="M48 78V42"/><path d="M48 48c-17 0-25-10-25-24 16 0 25 8 25 24ZM48 58c17 0 25-10 25-24-16 0-25 8-25 24Z"/><path d="M32 78h32"/></>,
   breakfast: <><path d="M20 54h56M27 54c2 15 11 23 21 23s19-8 21-23"/><path d="M32 37c5-8 12-12 20-12 7 0 13 3 17 9M38 42c4-5 9-7 15-7"/></>,
