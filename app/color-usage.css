@@ -8,6 +8,31 @@
   color: var(--color-text-secondary);
 }
 
+body,
+.brand,
+.site-header nav,
+.panel-heading h2,
+.feature-card h2,
+.result-card h2,
+.content-card h2,
+.meal-card h2,
+.workout-days h3,
+.empty-state h2,
+.metric strong,
+.task strong,
+.stat strong,
+.benefit-strip strong,
+.site-footer-brand,
+.site-footer-copy {
+  color: var(--color-text);
+}
+
+.form-card input,
+.form-card select,
+.workout-selector select {
+  color: var(--color-text);
+}
+
 html[data-theme="dark"] .lead,
 html[data-theme="dark"] .trust-row,
 html[data-theme="dark"] .clean-list {
@@ -16,6 +41,45 @@ html[data-theme="dark"] .clean-list {
 
 html[data-theme="dark"] .form-card label {
   color: var(--color-text-secondary);
+}
+
+.category-illustration {
+  width: 76px;
+  height: 76px;
+}
+
+.feature-icon {
+  width: 72px;
+  height: 72px;
+  flex-basis: 72px;
+  color: var(--color-accent);
+}
+
+.feature-icon .category-illustration {
+  width: 48px;
+  height: 48px;
+}
+
+.meal-card-visual {
+  width: 112px;
+  height: 112px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 20px;
+  border-radius: 24px;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.meal-card-visual .category-illustration {
+  width: 72px;
+  height: 72px;
+}
+
+.rank-visual .category-illustration {
+  width: 86px;
+  height: 86px;
+  margin-inline: auto;
 }
 
 .calculator-result-actions {
