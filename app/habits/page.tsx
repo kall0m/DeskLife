@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 const habits = [
   { title: "Вода", text: "Започни с една чаша вода и добавяй малки напомняния през деня.", icon: "water" },
   { title: "Почивки от екрана", text: "Откъсни поглед от монитора и дай кратка почивка на очите си.", icon: "screen" },
@@ -7,7 +9,7 @@ const habits = [
 ];
 
 function HabitIllustration({ type }: { type: string }) {
-  const content: Record<string, React.ReactNode> = {
+  const content: Record<string, ReactNode> = {
     water: <><path d="M48 15C39 29 29 39 29 52a19 19 0 0 0 38 0c0-13-10-23-19-37Z"/><path d="M38 54c2 7 7 10 13 10"/></>,
     screen: <><rect x="18" y="20" width="60" height="42" rx="6"/><path d="M39 75h18M48 62v13M33 37c4-4 8-6 15-6s12 2 16 6M39 45c3-3 6-4 9-4s7 1 10 4"/></>,
     move: <><circle cx="48" cy="20" r="8"/><path d="m46 30-8 19 14 8 7 18M43 38l17 5 8-9M38 49 25 64M52 57l-12 18"/></>,
