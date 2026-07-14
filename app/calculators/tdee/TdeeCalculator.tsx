@@ -65,6 +65,11 @@ export function TdeeCalculator() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(nextResult));
   }
 
+  function clearResult() {
+    localStorage.removeItem(STORAGE_KEY);
+    setResult(null);
+  }
+
   return (
     <div className="calculator-grid">
       <form className="card form-card" onSubmit={calculate}>
@@ -83,7 +88,10 @@ export function TdeeCalculator() {
           <div className="metric"><strong>{result.tdee}</strong><span>kcal приблизителен дневен енергиен разход</span></div>
           <div className="metric primary"><strong>{result.target}</strong><span>kcal {goalLabels[result.goal]}</span></div>
           <p className="muted">Стойностите са ориентировъчни. Резултатът се запазва в този браузър и остава видим след презареждане.</p>
-          <Link className="button button-secondary" href="/food/meal-plan">Виж примерен хранителен план</Link>
+          <div className="calculator-result-actions">
+            <Link className="button button-secondary" href="/food/meal-plan">Виж примерен хранителен план</Link>
+            <button className="text-button" type="button" onClick={clearResult}>Изчисти резултати</button>
+          </div>
         </> : <div className="empty-state"><h2>Въведи данните си</h2><p>Ще изчислим BMR, TDEE и ориентировъчна стойност според избраната цел.</p></div>}
       </aside>
     </div>
