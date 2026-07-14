@@ -12,7 +12,7 @@ function HabitIllustration({ type }: { type: string }) {
   const content: Record<string, ReactNode> = {
     water: <><path d="M48 15C39 29 29 39 29 52a19 19 0 0 0 38 0c0-13-10-23-19-37Z"/><path d="M38 54c2 7 7 10 13 10"/></>,
     screen: <><rect x="18" y="20" width="60" height="42" rx="6"/><path d="M39 75h18M48 62v13M33 37c4-4 8-6 15-6s12 2 16 6M39 45c3-3 6-4 9-4s7 1 10 4"/></>,
-    move: <><circle cx="50" cy="17" r="7"/><path d="M46 28 38 45l11 9 9-15"/><path d="m43 35-15 7"/><path d="m57 38 13 8"/><path d="m49 54-17 20"/><path d="m49 54 12 8 9 14"/><path d="M32 74h10M66 76h10"/></>,
+    move: <><circle cx="48" cy="18" r="7"/><path d="M48 29v24"/><path d="m48 36-15 10"/><path d="m48 36 16 8"/><path d="m48 53-14 22"/><path d="m48 53 17 19"/><path d="M28 77h12M62 74h12"/></>,
     air: <><path d="M15 35h39c9 0 9-13 0-13-5 0-8 3-9 6M16 48h56c10 0 10 14 0 14-5 0-8-3-9-6M20 61h27"/><path d="M70 22c7 5 10 12 10 20"/></>,
     rest: <><path d="M54 17a24 24 0 1 0 21 36A27 27 0 0 1 54 17Z"/><path d="m24 25 2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5ZM74 18l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3Z"/></>,
   };
