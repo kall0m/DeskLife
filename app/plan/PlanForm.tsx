@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { FormEvent, useEffect, useMemo, useState } from "react";
-import { BmiGauge } from "./BmiGauge";
 
 type Result = {
   name: string;
@@ -10,7 +9,6 @@ type Result = {
   workout: string[];
   nutrition: string[];
   dailyHabits?: string[];
-  bmi?: number;
 };
 
 const STORAGE_KEY = "desklife-plan";
@@ -57,10 +55,6 @@ export function PlanForm() {
     const experience = String(form.get("experience"));
     const goal = String(form.get("goal"));
     const nutrition = nutritionByGoal[goal];
-    const heightCm = Number(form.get("height"));
-    const weightKg = Number(form.get("weight"));
-    const heightM = heightCm / 100;
-    const bmi = weightKg / (heightM * heightM);
 
     const nextResult: Result = {
       name: String(form.get("name") || "").trim() || "Твоят план",
@@ -68,7 +62,6 @@ export function PlanForm() {
       workout: workoutByExperience[experience],
       nutrition: nutrition.tips,
       dailyHabits,
-      bmi: Number(bmi.toFixed(1)),
     };
 
     setResult(nextResult);
@@ -106,7 +99,6 @@ export function PlanForm() {
           <>
             <p className="eyebrow"><span /> План за {result.name}</p>
             <h2>{result.recommendation}</h2>
-            {typeof result.bmi === "number" && <BmiGauge bmi={result.bmi} />}
             <h3>Седмично движение</h3>
             <ul className="clean-list">{result.workout.map((item) => <li key={item}>{item}</li>)}</ul>
             <h3>Хранителна насока</h3>
