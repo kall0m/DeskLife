@@ -1,23 +1,24 @@
 import Link from "next/link";
 import { heroImage } from "./assets/hero-image";
+import { CategoryIllustration, type IllustrationType } from "./components/CategoryIllustration";
 import { DailyPlan } from "./components/DailyPlan";
 import { WeeklyStats } from "./components/WeeklyStats";
 
-const features = [
+const features: { icon: IllustrationType; title: string; text: string; href: string }[] = [
   {
-    icon: "🥣",
+    icon: "food",
     title: "Храна",
     text: "Лесни идеи за хранене, които се вписват в натоварения работен ден.",
     href: "/food/meal-plan",
   },
   {
-    icon: "🚶",
+    icon: "movement",
     title: "Движение",
     text: "Кратки раздвижвания, разходки и тренировки според времето, с което разполагаш.",
     href: "/movement/workouts",
   },
   {
-    icon: "🌱",
+    icon: "habits",
     title: "Навици",
     text: "Малки ежедневни действия за повече енергия, фокус и устойчивост.",
     href: "/habits",
@@ -46,7 +47,12 @@ export default function Home() {
       </section>
 
       <section className="shell feature-grid" id="features">
-        {features.map((feature) => <article className="card feature-card" key={feature.title}><div className="feature-icon">{feature.icon}</div><div><h2>{feature.title}</h2><p>{feature.text}</p><Link href={feature.href}>Виж повече →</Link></div></article>)}
+        {features.map((feature) => (
+          <article className="card feature-card" key={feature.title}>
+            <div className="feature-icon"><CategoryIllustration type={feature.icon} label={`Илюстрация за ${feature.title}`} /></div>
+            <div><h2>{feature.title}</h2><p>{feature.text}</p><Link href={feature.href}>Виж повече →</Link></div>
+          </article>
+        ))}
       </section>
 
       <section className="shell dashboard-grid" id="dashboard">
