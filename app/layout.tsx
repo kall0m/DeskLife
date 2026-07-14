@@ -13,6 +13,7 @@ import "./footer.css";
 import "./experience-enhancements.css";
 import "./color-usage.css";
 import "./bmi-gauge.css";
+import "./latest-enhancements.css";
 
 export const metadata: Metadata = {
   title: "Desk Life",
