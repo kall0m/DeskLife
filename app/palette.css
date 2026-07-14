@@ -55,11 +55,11 @@ html[data-theme="dark"] {
   --color-surface-soft: #222a35;
   --color-surface-accent: #253650;
 
-  --color-text: #f4f7fb;
-  --color-text-secondary: #d9e1ec;
-  --color-text-body: #c2ccda;
-  --color-text-muted: #abb6c5;
-  --color-text-subtle: #8e9bae;
+  --color-text: #ffffff;
+  --color-text-secondary: #eef3f9;
+  --color-text-body: #d7e0eb;
+  --color-text-muted: #bdc8d6;
+  --color-text-subtle: #a7b3c3;
 
   --color-border: #303a48;
   --color-border-strong: #465264;
@@ -75,9 +75,9 @@ html[data-theme="dark"] {
   --color-success-strong: #74dfa4;
   --color-danger: #ff8d85;
 
-  --color-movement-heading: #d7e2ef;
-  --color-movement-body: #bdcadd;
-  --color-movement-muted: #a6b5c9;
+  --color-movement-heading: #eef4fb;
+  --color-movement-body: #d4deea;
+  --color-movement-muted: #bdc9d8;
 
   --shadow-card: 0 18px 48px rgba(0, 0, 0, 0.24);
   --shadow-button: 0 8px 20px rgba(101, 161, 255, 0.18);
