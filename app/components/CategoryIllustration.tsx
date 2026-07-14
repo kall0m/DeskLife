@@ -13,8 +13,8 @@ export type IllustrationType =
   | "advanced";
 
 const illustrations: Record<IllustrationType, ReactNode> = {
-  food: <><path d="M21 55h54M27 55c2 15 12 23 21 23s19-8 21-23"/><path d="M35 43c0-8 6-14 13-14s13 6 13 14M48 18v11M36 22l5 9M60 22l-5 9"/></>,
-  movement: <><circle cx="48" cy="19" r="8"/><path d="m46 30-8 19 14 8 7 18M43 38l17 5 8-9M38 49 25 64M52 57l-12 18"/></>,
+  food: <><path d="M20 52h56"/><path d="M27 52c2 16 11 25 21 25s19-9 21-25"/><path d="M33 45c4-8 10-12 18-12 7 0 13 3 17 9"/><path d="M62 18 50 44"/><path d="M58 18h8"/><path d="M36 25c-4 5-4 10 0 15M47 20c-4 6-4 11 0 16"/></>,
+  movement: <><circle cx="50" cy="17" r="7"/><path d="M46 28 38 45l11 9 9-15"/><path d="m43 35-15 7"/><path d="m57 38 13 8"/><path d="m49 54-17 20"/><path d="m49 54 12 8 9 14"/><path d="M32 74h10M66 76h10"/></>,
   habits: <><path d="M48 78V42"/><path d="M48 48c-17 0-25-10-25-24 16 0 25 8 25 24ZM48 58c17 0 25-10 25-24-16 0-25 8-25 24Z"/><path d="M32 78h32"/></>,
   breakfast: <><path d="M20 54h56M27 54c2 15 11 23 21 23s19-8 21-23"/><path d="M32 37c5-8 12-12 20-12 7 0 13 3 17 9M38 42c4-5 9-7 15-7"/></>,
   lunch: <><circle cx="48" cy="49" r="28"/><circle cx="48" cy="49" r="17"/><path d="M16 22v54M11 22v16c0 6 10 6 10 0V22M80 22v54M75 22h10"/></>,
