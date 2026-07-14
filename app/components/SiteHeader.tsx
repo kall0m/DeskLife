@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function SiteHeader() {
   return (
@@ -13,7 +14,10 @@ export function SiteHeader() {
         <Link href="/movement/workouts">Движение</Link>
         <Link href="/habits">Навици</Link>
       </nav>
-      <Link className="button button-small" href="/login">Вход</Link>
+      <div className="header-actions">
+        <ThemeToggle />
+        <Link className="button button-small" href="/login">Вход</Link>
+      </div>
     </header>
   );
 }
