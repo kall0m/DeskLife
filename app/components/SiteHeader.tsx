@@ -10,6 +10,7 @@ export function SiteHeader() {
         <span>Desk Life</span>
       </Link>
       <nav aria-label="Главна навигация">
+        <Link href="/plan">План</Link>
         <Link href="/food/meal-plan">Храна</Link>
         <Link href="/movement/workouts">Движение</Link>
         <Link href="/habits">Навици</Link>
