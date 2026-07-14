@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { CategoryIllustration, type IllustrationType } from "../../components/CategoryIllustration";
 
 type PlanKey = "beginner" | "intermediate" | "advanced";
 
@@ -9,7 +10,7 @@ type Plan = {
   meta: string;
   intro: string;
   rank: number;
-  symbol: string;
+  icon: IllustrationType;
   days: [string, string[]][];
 };
 
@@ -19,7 +20,7 @@ const plans: Record<PlanKey, Plan> = {
     meta: "3 дни седмично · 0–2 месеца опит",
     intro: "Тренирай цялото тяло през ден и използвай останалите дни за ходене и възстановяване.",
     rank: 1,
-    symbol: "●",
+    icon: "beginner",
     days: [["Понеделник / Сряда / Петък", ["Клек с щанга или дъмбели — 3×8–10", "Лежанка — 3×8–10", "Гребане с дъмбел или скрипец — 3×10", "Раменна преса — 3×10", "Бицепс + трицепс — 2×12", "Планк или коремни преси — 3 серии"]]],
   },
   intermediate: {
@@ -27,7 +28,7 @@ const plans: Record<PlanKey, Plan> = {
     meta: "6 дни седмично · приблизително 6 месеца–4 години опит",
     intro: "Класическо разпределение на мускулните групи с повторение на цикъла два пъти седмично.",
     rank: 2,
-    symbol: "◆",
+    icon: "intermediate",
     days: [
       ["Понеделник и Четвъртък — Push", ["Лежанка — 4×6–8", "Полулег с дъмбели — 3×8–10", "Военна преса — 3×8", "Странични вдигания — 4×12", "Трицепсово разгъване — 3×10"]],
       ["Вторник и Петък — Pull", ["Мъртва тяга само в единия ден — 3×5", "Набирания или скрипец — 4×8–10", "Гребане с щанга — 3×8", "Face pull — 3×15", "Сгъване с EZ лост — 3×10–12"]],
@@ -39,7 +40,7 @@ const plans: Record<PlanKey, Plan> = {
     meta: "5–6 дни седмично · 5+ години опит",
     intro: "По-висок обем, разпределен по отделни мускулни групи. Изисква добро възстановяване и контролирано натоварване.",
     rank: 3,
-    symbol: "▲",
+    icon: "advanced",
     days: [["Седмица", ["Понеделник — гърди", "Вторник — гръб", "Сряда — крака", "Четвъртък — рамене", "Петък — ръце", "Събота — слаби точки или кардио", "Неделя — почивка"]]],
   },
 };
@@ -73,7 +74,7 @@ export default function WorkoutsPage() {
         {plan ? (
           <article className="card content-card workout-plan-card">
             <div className="rank-visual" aria-label={`Ранг ${plan.rank} от 3`}>
-              <span className="rank-symbol" aria-hidden="true">{plan.symbol}</span>
+              <CategoryIllustration type={plan.icon} label={`Илюстрация за ранг ${plan.rank}`} />
               <div>{[1, 2, 3].map((rank) => <i className={rank <= plan.rank ? "is-filled" : ""} key={rank} />)}</div>
               <small>Ранг {plan.rank} / 3</small>
             </div>
