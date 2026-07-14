@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export function Preloader() {
@@ -37,7 +38,10 @@ export function Preloader() {
   return (
     <div className={`preloader${progress === 100 ? " is-complete" : ""}`} role="status" aria-live="polite">
       <div className="preloader-inner">
-        <span className="preloader-brand">DeskLife</span>
+        <div className="preloader-brand">
+          <Image className="preloader-logo" src="/icon.svg" alt="" width={34} height={40} priority />
+          <span>Desk Life</span>
+        </div>
         <div className="preloader-track" aria-hidden="true">
           <span style={{ width: `${progress}%` }} />
         </div>
