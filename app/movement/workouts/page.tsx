@@ -50,7 +50,7 @@ export default function WorkoutsPage() {
   const plan = visiblePlan ? plans[visiblePlan] : null;
 
   return (
-    <main>
+    <main className="movement-page">
       <section className="page-hero shell">
         <p className="eyebrow"><span /> Библиотека с тренировки</p>
         <h1>Избери структура според опита и времето си.</h1>
