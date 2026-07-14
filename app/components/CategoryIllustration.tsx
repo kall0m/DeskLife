@@ -13,7 +13,7 @@ export type IllustrationType =
   | "advanced";
 
 const illustrations: Record<IllustrationType, ReactNode> = {
-  food: <><path d="M43 31c10 3 19 12 22 22-10-2-20-11-22-22Z"/><path d="M43 31c-5 18 1 35 15 45 13-10 19-25 15-43-12-4-22-3-30-2Z"/><path d="M55 43c5 7 8 15 9 25"/><path d="M42 29c-8-8-15-9-22-5 7 3 12 8 15 16M47 28c1-10 6-16 14-19 0 8-4 14-10 19"/></>,
+  food: <><path d="M18 50h60"/><path d="M24 50c3 18 12 28 24 28s21-10 24-28"/><path d="M31 45c0-8 5-14 12-14 4 0 7 2 9 5 2-7 7-11 14-11 6 0 11 4 13 10"/><path d="M38 34c-5-7-10-10-16-10 1 8 6 14 14 17M57 31c2-8 8-13 16-14-1 8-6 14-14 17M46 29c0-8 3-14 9-18 3 7 2 14-3 20"/></>,
   movement: <><circle cx="48" cy="18" r="7"/><path d="M48 29v24"/><path d="m48 36-15 10"/><path d="m48 36 16 8"/><path d="m48 53-14 22"/><path d="m48 53 17 19"/><path d="M28 77h12M62 74h12"/></>,
   habits: <><path d="M48 78V42"/><path d="M48 48c-17 0-25-10-25-24 16 0 25 8 25 24ZM48 58c17 0 25-10 25-24-16 0-25 8-25 24Z"/><path d="M32 78h32"/></>,
   breakfast: <><path d="M20 54h56M27 54c2 15 11 23 21 23s19-8 21-23"/><path d="M32 37c5-8 12-12 20-12 7 0 13 3 17 9M38 42c4-5 9-7 15-7"/></>,
@@ -27,18 +27,7 @@ const illustrations: Record<IllustrationType, ReactNode> = {
 
 export function CategoryIllustration({ type, label }: { type: IllustrationType; label?: string }) {
   return (
-    <svg
-      className="category-illustration"
-      viewBox="0 0 96 96"
-      role={label ? "img" : undefined}
-      aria-label={label}
-      aria-hidden={label ? undefined : true}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="4"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg className="category-illustration" viewBox="0 0 96 96" role={label ? "img" : undefined} aria-label={label} aria-hidden={label ? undefined : true} fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
       {illustrations[type]}
     </svg>
   );
