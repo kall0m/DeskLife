@@ -19,15 +19,14 @@ export function DailyPlan() {
   const [hasLoaded, setHasLoaded] = useState(false);
   const completedCount = tasks.filter((task) => task.done).length;
   const progress = (completedCount / tasks.length) * 100;
+  const isComplete = completedCount === tasks.length;
 
   useEffect(() => {
     try {
       const savedTasks = localStorage.getItem(STORAGE_KEY);
       if (savedTasks) {
         const parsedTasks = JSON.parse(savedTasks) as typeof initialTasks;
-        if (Array.isArray(parsedTasks) && parsedTasks.length === initialTasks.length) {
-          setTasks(parsedTasks);
-        }
+        if (Array.isArray(parsedTasks) && parsedTasks.length === initialTasks.length) setTasks(parsedTasks);
       }
     } catch {
       localStorage.removeItem(STORAGE_KEY);
@@ -37,50 +36,28 @@ export function DailyPlan() {
   }, []);
 
   useEffect(() => {
-    if (!hasLoaded) return;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    if (hasLoaded) localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
   }, [tasks, hasLoaded]);
 
   function toggleTask(index: number) {
-    setTasks((currentTasks) =>
-      currentTasks.map((task, taskIndex) =>
-        taskIndex === index ? { ...task, done: !task.done } : task,
-      ),
-    );
+    setTasks((currentTasks) => currentTasks.map((task, taskIndex) => taskIndex === index ? { ...task, done: !task.done } : task));
   }
 
   return (
     <article className="card panel">
-      <div className="panel-heading">
-        <h2>Днешният план</h2>
-        <span>Примерен ден</span>
-      </div>
-
+      <div className="panel-heading"><h2>Днешният план</h2><span>Примерен ден</span></div>
       <div className="task-list">
         {tasks.map((task, index) => (
-          <button
-            className={`task${task.done ? " is-done" : ""}`}
-            key={task.title}
-            type="button"
-            onClick={() => toggleTask(index)}
-            aria-pressed={task.done}
-          >
-            <span className={`check${task.done ? " done" : ""}`} aria-hidden="true">
-              {task.done ? "✓" : ""}
-            </span>
-            <span className="task-copy">
-              <strong>{task.title}</strong>
-              <small>{task.text}</small>
-            </span>
+          <button className={`task${task.done ? " is-done" : ""}`} key={task.title} type="button" onClick={() => toggleTask(index)} aria-pressed={task.done}>
+            <span className={`check${task.done ? " done" : ""}`} aria-hidden="true">{task.done ? "✓" : ""}</span>
+            <span className="task-copy"><strong>{task.title}</strong><small>{task.text}</small></span>
           </button>
         ))}
       </div>
-
       <div className="panel-footer">
-        <span className="progress-bar" aria-label={`${completedCount} от ${tasks.length} завършени`}>
-          <i style={{ width: `${progress}%` }} />
-        </span>
+        <span className="progress-bar" aria-label={`${completedCount} от ${tasks.length} завършени`}><i style={{ width: `${progress}%` }} /></span>
         <small>{completedCount} от {tasks.length} завършени</small>
+        {isComplete && <p className="completion-message" role="status">Поздравления! Завърши целия си план за деня.</p>}
       </div>
     </article>
   );
