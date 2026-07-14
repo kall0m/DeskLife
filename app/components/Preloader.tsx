@@ -10,7 +10,7 @@ export function Preloader() {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const timer = window.setTimeout(() => setIsVisible(false), 1000);
+      const timer = window.setTimeout(() => setIsVisible(false), 500);
       return () => window.clearTimeout(timer);
     }
 
@@ -23,16 +23,19 @@ export function Preloader() {
     function update(now: number) {
       const nextProgress = Math.min(100, Math.round(((now - startedAt) / progressDuration) * 100));
       setProgress(nextProgress);
-      if (nextProgress < 100) frame = requestAnimationFrame(update);
-      else {
+
+      if (nextProgress < 100) {
+        frame = requestAnimationFrame(update);
+      } else {
         leaveTimer = window.setTimeout(() => {
           setIsLeaving(true);
-          removeTimer = window.setTimeout(() => setIsVisible(false), 900);
-        }, 1000);
+          removeTimer = window.setTimeout(() => setIsVisible(false), 700);
+        }, 500);
       }
     }
 
     frame = requestAnimationFrame(update);
+
     return () => {
       cancelAnimationFrame(frame);
       window.clearTimeout(leaveTimer);
@@ -49,7 +52,9 @@ export function Preloader() {
           <Image className="preloader-logo" src="/icon.svg" alt="" width={34} height={40} priority />
           <span>Desk Life</span>
         </div>
-        <div className="preloader-track" aria-hidden="true"><span style={{ width: `${progress}%` }} /></div>
+        <div className="preloader-track" aria-hidden="true">
+          <span style={{ width: `${progress}%` }} />
+        </div>
         <span className="preloader-percentage">{progress}%</span>
       </div>
     </div>
