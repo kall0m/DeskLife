@@ -15,25 +15,40 @@ type GaugeSegment = {
   from: number;
   to: number;
   color: string;
-  label?: string;
+};
+
+type GaugeLabel = {
+  label: string;
+  from: number;
+  to: number;
 };
 
 const MIN_BMI = 12;
 const MAX_BMI = 45;
 const CENTER_X = 160;
-const CENTER_Y = 164;
-const OUTER_RADIUS = 132;
+const CENTER_Y = 178;
+const OUTER_RADIUS = 128;
 const INNER_RADIUS = 78;
 
 const segments: GaugeSegment[] = [
   { from: 12, to: 16, color: "#8a0101" },
-  { from: 16, to: 18.5, color: "#bc2020", label: "поднормено" },
-  { from: 18.5, to: 25, color: "#008137", label: "нормално" },
-  { from: 25, to: 30, color: "#ffe400", label: "наднормено" },
+  { from: 16, to: 17, color: "#d38888" },
+  { from: 17, to: 18.5, color: "#ffe400" },
+  { from: 18.5, to: 25, color: "#008137" },
+  { from: 25, to: 30, color: "#ffe400" },
   { from: 30, to: 35, color: "#f59e0b" },
-  { from: 35, to: 40, color: "#bc2020", label: "затлъстяване" },
+  { from: 35, to: 40, color: "#bc2020" },
   { from: 40, to: 45, color: "#8a0101" },
 ];
+
+const categoryLabels: GaugeLabel[] = [
+  { label: "поднормено", from: 12, to: 18.5 },
+  { label: "нормално", from: 18.5, to: 25 },
+  { label: "наднормено", from: 25, to: 30 },
+  { label: "затлъстяване", from: 30, to: 45 },
+];
+
+const thresholds = [16, 17, 18.5, 25, 30, 35, 40];
 
 function getStatus(bmi: number): BmiStatus {
   if (bmi < 16) return { label: "Силно поднормено тегло", color: "#8a0101" };
@@ -45,7 +60,11 @@ function getStatus(bmi: number): BmiStatus {
   return { label: "Затлъстяване III степен", color: "#8a0101" };
 }
 
-function bmiToAngle(bmi: number) {
+function valueToArcAngle(value: number) {
+  return 180 + ((value - MIN_BMI) / (MAX_BMI - MIN_BMI)) * 180;
+}
+
+function bmiToNeedleAngle(bmi: number) {
   const clamped = Math.min(MAX_BMI, Math.max(MIN_BMI, bmi));
   return -90 + ((clamped - MIN_BMI) / (MAX_BMI - MIN_BMI)) * 180;
 }
@@ -59,8 +78,8 @@ function polarPoint(radius: number, angle: number) {
 }
 
 function segmentPath(from: number, to: number) {
-  const startAngle = 180 + ((from - MIN_BMI) / (MAX_BMI - MIN_BMI)) * 180;
-  const endAngle = 180 + ((to - MIN_BMI) / (MAX_BMI - MIN_BMI)) * 180;
+  const startAngle = valueToArcAngle(from);
+  const endAngle = valueToArcAngle(to);
   const outerStart = polarPoint(OUTER_RADIUS, startAngle);
   const outerEnd = polarPoint(OUTER_RADIUS, endAngle);
   const innerEnd = polarPoint(INNER_RADIUS, endAngle);
@@ -75,14 +94,17 @@ function segmentPath(from: number, to: number) {
   ].join(" ");
 }
 
-function labelPoint(from: number, to: number) {
-  const middleValue = (from + to) / 2;
-  const angle = 180 + ((middleValue - MIN_BMI) / (MAX_BMI - MIN_BMI)) * 180;
-  return polarPoint((OUTER_RADIUS + INNER_RADIUS) / 2, angle);
+function middlePoint(from: number, to: number, radius: number) {
+  return polarPoint(radius, valueToArcAngle((from + to) / 2));
+}
+
+function readableRotation(angle: number) {
+  const tangent = angle + 90;
+  return tangent > 90 && tangent < 270 ? tangent + 180 : tangent;
 }
 
 export function BmiGauge({ bmi }: BmiGaugeProps) {
-  const targetAngle = useMemo(() => bmiToAngle(bmi), [bmi]);
+  const targetAngle = useMemo(() => bmiToNeedleAngle(bmi), [bmi]);
   const status = useMemo(() => getStatus(bmi), [bmi]);
   const [angle, setAngle] = useState(-90);
 
@@ -103,15 +125,48 @@ export function BmiGauge({ bmi }: BmiGaugeProps) {
       </div>
 
       <div className="bmi-gauge-visual">
-        <svg viewBox="0 0 320 184" role="img" aria-label="Цветна BMI скала със стрелка">
+        <svg viewBox="0 0 320 205" role="img" aria-label="Цветна BMI скала със стрелка">
           {segments.map((segment) => (
             <path key={`${segment.from}-${segment.to}`} d={segmentPath(segment.from, segment.to)} fill={segment.color} />
           ))}
 
-          <g className="bmi-gauge-labels">
-            {segments.filter((segment) => segment.label).map((segment) => {
-              const point = labelPoint(segment.from, segment.to);
-              return <text key={segment.label} x={point.x} y={point.y} textAnchor="middle" dominantBaseline="middle">{segment.label}</text>;
+          <g className="bmi-gauge-category-labels">
+            {categoryLabels.map((category) => {
+              const middleAngle = valueToArcAngle((category.from + category.to) / 2);
+              const point = middlePoint(category.from, category.to, OUTER_RADIUS + 17);
+              const rotation = readableRotation(middleAngle);
+              return (
+                <text
+                  key={category.label}
+                  x={point.x}
+                  y={point.y}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  transform={`rotate(${rotation} ${point.x} ${point.y})`}
+                >
+                  {category.label}
+                </text>
+              );
+            })}
+          </g>
+
+          <g className="bmi-gauge-thresholds">
+            {thresholds.map((threshold) => {
+              const thresholdAngle = valueToArcAngle(threshold);
+              const point = polarPoint(OUTER_RADIUS - 13, thresholdAngle);
+              const rotation = readableRotation(thresholdAngle);
+              return (
+                <text
+                  key={threshold}
+                  x={point.x}
+                  y={point.y}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  transform={`rotate(${rotation} ${point.x} ${point.y})`}
+                >
+                  {threshold}
+                </text>
+              );
             })}
           </g>
 
@@ -119,8 +174,8 @@ export function BmiGauge({ bmi }: BmiGaugeProps) {
             className="bmi-gauge-needle"
             style={{ transform: `rotate(${angle}deg)`, transformOrigin: `${CENTER_X}px ${CENTER_Y}px` }}
           >
-            <line x1={CENTER_X} y1={CENTER_Y} x2={CENTER_X} y2="72" />
-            <polygon points="160,58 151,78 169,78" />
+            <line x1={CENTER_X} y1={CENTER_Y} x2={CENTER_X} y2="88" />
+            <polygon points="160,72 151,92 169,92" />
           </g>
           <circle cx={CENTER_X} cy={CENTER_Y} r="10" className="bmi-gauge-center" />
         </svg>
