@@ -1,10 +1,11 @@
 import Link from "next/link";
+import { CategoryIllustration, type IllustrationType } from "../../components/CategoryIllustration";
 
-const meals = [
-  { title: "Закуска", share: "Около 25% от дневните калории", example: "Овесени ядки с мляко или вода, източник на протеин, плодове и малко ядково масло." },
-  { title: "Обяд", share: "Около 30% от дневните калории", example: "Пилешко, телешко или растителен протеин със ориз или картофи и голяма сезонна салата." },
-  { title: "Следобедна или предтренировъчна закуска", share: "Около 15% от дневните калории", example: "Оризовки с пуешко или извара, плюс ябълка или банан." },
-  { title: "Вечеря", share: "Около 30% от дневните калории", example: "Риба, нетлъсто месо или растителен протеин със зеленчуци и малка порция сладък картоф или киноа." },
+const meals: { title: string; share: string; example: string; icon: IllustrationType }[] = [
+  { title: "Закуска", share: "Около 25% от дневните калории", example: "Овесени ядки с мляко или вода, източник на протеин, плодове и малко ядково масло.", icon: "breakfast" },
+  { title: "Обяд", share: "Около 30% от дневните калории", example: "Пилешко, телешко или растителен протеин със ориз или картофи и голяма сезонна салата.", icon: "lunch" },
+  { title: "Следобедна или предтренировъчна закуска", share: "Около 15% от дневните калории", example: "Оризовки с пуешко или извара, плюс ябълка или банан.", icon: "snack" },
+  { title: "Вечеря", share: "Около 30% от дневните калории", example: "Риба, нетлъсто месо или растителен протеин със зеленчуци и малка порция сладък картоф или киноа.", icon: "dinner" },
 ];
 
 export default function MealPlanPage() {
@@ -19,6 +20,7 @@ export default function MealPlanPage() {
         <div className="meal-grid">
           {meals.map((meal, index) => (
             <article className="card meal-card" key={meal.title}>
+              <div className="meal-card-visual"><CategoryIllustration type={meal.icon} label={`Илюстрация за ${meal.title}`} /></div>
               <span className="meal-number">0{index + 1}</span>
               <p className="content-meta">{meal.share}</p>
               <h2>{meal.title}</h2>
