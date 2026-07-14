@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
+import { BmiGauge } from "../../plan/BmiGauge";
 
 type Goal = "maintain" | "cut" | "bulk";
-type Calculation = { bmr: number; tdee: number; target: number; goal: Goal };
+type Calculation = { bmr: number; tdee: number; target: number; goal: Goal; bmi: number };
 
 const STORAGE_KEY = "desklife-tdee-result";
 
@@ -30,6 +31,7 @@ function isCalculation(value: unknown): value is Calculation {
     Number.isFinite(result.bmr) &&
     Number.isFinite(result.tdee) &&
     Number.isFinite(result.target) &&
+    Number.isFinite(result.bmi) &&
     (result.goal === "maintain" || result.goal === "cut" || result.goal === "bulk")
   );
 }
@@ -59,7 +61,15 @@ export function TdeeCalculator() {
     const goal = String(data.get("goal")) as Goal;
     const bmr = 10 * weight + 6.25 * height - 5 * age + (gender === "male" ? 5 : -161);
     const tdee = Math.round(bmr * activityFactors[activity]);
-    const nextResult = { bmr: Math.round(bmr), tdee, target: tdee + goalAdjustments[goal], goal };
+    const heightM = height / 100;
+    const bmi = weight / (heightM * heightM);
+    const nextResult = {
+      bmr: Math.round(bmr),
+      tdee,
+      target: tdee + goalAdjustments[goal],
+      goal,
+      bmi: Number(bmi.toFixed(1)),
+    };
 
     setResult(nextResult);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(nextResult));
@@ -84,6 +94,7 @@ export function TdeeCalculator() {
       <aside className="card result-card calculator-result" aria-live="polite">
         <p className="eyebrow"><span /> Резултат</p>
         {result ? <>
+          <BmiGauge bmi={result.bmi} />
           <div className="metric"><strong>{result.bmr}</strong><span>kcal базов метаболизъм (BMR)</span></div>
           <div className="metric"><strong>{result.tdee}</strong><span>kcal приблизителен дневен енергиен разход</span></div>
           <div className="metric primary"><strong>{result.target}</strong><span>kcal {goalLabels[result.goal]}</span></div>
@@ -92,7 +103,7 @@ export function TdeeCalculator() {
             <Link className="button button-secondary" href="/food/meal-plan">Виж примерен хранителен план</Link>
             <button className="text-button" type="button" onClick={clearResult}>Изчисти резултати</button>
           </div>
-        </> : <div className="empty-state"><h2>Въведи данните си</h2><p>Ще изчислим BMR, TDEE и ориентировъчна стойност според избраната цел.</p></div>}
+        </> : <div className="empty-state"><h2>Въведи данните си</h2><p>Ще изчислим BMI, BMR, TDEE и ориентировъчна стойност според избраната цел.</p></div>}
       </aside>
     </div>
   );
